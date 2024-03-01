@@ -1,3 +1,4 @@
 undodir/
 .envrc
 lua/logfile.txt
+pack/
