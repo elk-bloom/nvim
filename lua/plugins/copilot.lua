@@ -1,3 +1,6 @@
 return {
-        "github/copilot.vim"
-    }
+    "github/copilot.vim",
+    config = function()
+        require 'mappings.copilot-mappings'.setup()
+    end,
+}
