@@ -18,6 +18,17 @@ function M.setup()
 
     wk.register(global_mappings)
 
+    -- thx u/lakenta: https://www.reddit.com/r/neovim/comments/13wcqdr/comment/jmbgqo5/
+    vim.api.nvim_create_user_command("DiagnosticToggle", function()
+        local config = vim.diagnostic.config
+        local vt = config().virtual_text
+        config {
+            virtual_text = not vt,
+            underline = not vt,
+            signs = not vt,
+        }
+    end, { desc = "toggle diagnostic" })
+
     vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
         callback = function(ev)
@@ -30,9 +41,12 @@ function M.setup()
                     d = { vim.lsp.buf.definition, "Go to definition", opts },
                     i = { vim.lsp.buf.implementation, "Go to implementation", opts },
                     r = { vim.lsp.buf.references, "References", opts },
+                    K = { vim.lsp.buf.signature_help, "Signature help", opts },
+                    o = { vim.diagnostic.open_float, "Open diagnostic float", opts },
+                    l = { ":DiagnosticToggle<CR>", "Toggle diagnostics", opts },
                 },
                 K = { vim.lsp.buf.hover, "Hover", opts },
-                ["<gK>"] = { vim.lsp.buf.signature_help, "Signature help", opts },
+                -- ["<gK>"] = { vim.lsp.buf.signature_help, "Signature help", opts },
                 ["<leader>"] = {
                     name = "LSP",
                     wa = { vim.lsp.buf.add_workspace_folder, "Add workspace folder", opts },

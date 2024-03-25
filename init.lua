@@ -68,5 +68,5 @@ vim.opt.splitbelow = true           -- Horizontal splits will automatically be b
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = 'menuone,noselect'
 
-vim.cmd.colorscheme('tokyonight')
+vim.cmd.colorscheme('gruvbox')
 
